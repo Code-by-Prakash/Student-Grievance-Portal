@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Track_Grievance</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+<body>
+<div th:include="fragments/index-header :: header"></div>
+<div th:include="fragments/guest-nav :: guest-nav"></div>
+<div class="container mt-5">
+    <h2 class="mb-4">Track Grievance</h2>
+    <div th:if="${param.deleted}">
+        <div class="alert alert-danger">
+         Grievance (id: <span  th:text="${param.deleted}"></span> ) is deleted successfully.
+        </div></div>
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">
+         Grievance not found for id:  <span  th:text="${param.error}"></span>
+        </div></div>
+    <form th:action="@{/track-guest-grievances}" method="get" >
+    <div class="mb-3">
+        <label for="Id" class="form-label">Enter Grievance ID:</label>
+        <input type="text" class="form-control" id="Id" name="Id" placeholder="Enter Grievance ID">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Track Grievance</button>
+</form>
+
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

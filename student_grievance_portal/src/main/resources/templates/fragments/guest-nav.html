@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Guest_Navbar</title>
+</head>
+<body>
+<div th:fragment="guest-nav">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <!-- Toggle button for mobile -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Entire Navbar Content -->
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <!-- Left Side Menus -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link font-weight-bold" href="/guest-user">New Grievance<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/track">Track Grievance<span class="sr-only"></span></a>
+      </li>
+    </ul>
+
+
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item d-flex align-items-center" >       
+        <i class="material-icons">person</i>
+        <span class="nav-link font-weight-bold" >Guest</span>
+    </li>
+    <li class="nav-item d-flex align-items-center">
+     <i class="material-icons">exit_to_app</i>
+        <a class="nav-link font-weight-bold" th:href="@{/index}">
+           Logout
+        </a>
+    </li>
+  
+</ul>
+
+  </div>
+</nav>
+</div>
+
+</body>
+</html>

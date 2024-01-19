@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Manage All Grievances</title>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <!-- Include jQuery -->
+ </head>
+<body>
+    <div th:include="fragments/index-header :: header"></div>
+    <div th:include="fragments/admin-nav :: admin-nav"></div>
+    <div class="container mt-5">
+        <h2>Manage All Grievances</h2>
+        <div th:if="${param.updated}">
+        <div class="alert alert-success">
+         Grievance (id = <span  th:text="${param.updated}"></span>) Status updated successfully.
+        </div></div>
+        <div class="table-responsive">
+        <div class="form-group">
+    <label for="statusFilter">Filter by Status:</label>
+    <select id="statusFilter" class="form-control">
+        <option value="">All</option>
+        <option value="Submitted">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Closed">Closed</option>
+        <!-- Add more status options as needed -->
+    </select>
+</div>
+            <table class="table" id="grievanceTable">
+                <thead>
+                    <tr>
+                        <th>Grievance Id</th>
+                        <th>Name</th>
+                        <th>User Id</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Course</th>
+                        <th>Course Type</th>
+                        <th>Grievance Type</th>
+                        <th>Subject</th>
+                        <th>Grievance</th>
+                        <th>Attachments</th>
+                        <th>Status</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="grievanceWithUser : ${grievancesWithUsers}">
+                        <td th:text="${grievanceWithUser.grievance.id}"></td>
+                        <td th:text="${grievanceWithUser.user.name}"></td>
+                        <td th:text="${grievanceWithUser.user.id}"></td>
+                        <td th:text="${grievanceWithUser.user.email}"></td>
+                        <td th:text="${grievanceWithUser.user.mobile}"></td>
+                        <td th:text="${grievanceWithUser.user.course}"></td>
+                        <td th:text="${grievanceWithUser.user.type}"></td>
+                        <td th:text="${grievanceWithUser.grievance.type}"></td>
+                        <td th:text="${grievanceWithUser.grievance.title}"></td>
+                        <td th:text="${grievanceWithUser.grievance.description}"></td>
+                        <td>
+                            <span th:if="${grievanceWithUser.grievance.attachments != null and grievanceWithUser.grievance.attachments.length > 0}">
+                                <a th:href="@{'/download-attachment/' + ${grievanceWithUser.grievance.id}}">View Attachment</a>
+                            </span>
+                            <span th:if="${grievanceWithUser.grievance.attachments == null or grievanceWithUser.grievance.attachments.length == 0}">
+                                No Attachment
+                            </span>
+                        </td>
+                       <td th:text="${grievanceWithUser.grievance.status}"></td>
+                       
+                       <td>
+                <div th:if="${grievanceWithUser.grievance.remarks != null}">
+                 <p th:text="${grievanceWithUser.grievance.remarks}"></p></div>
+                 <div th:unless="${grievanceWithUser.grievance.remarks != null}">
+        No Remarks
+    </div>
+                 </td>
+                       
+<td>
+    <div th:if="${grievanceWithUser.grievance.status == 'Submitted' or grievanceWithUser.grievance.status == 'In Progress'}">
+        <a th:href="@{'/update-status/' + ${grievanceWithUser.grievance.id}}" class="btn btn-primary btn-sm">Update Status</a>
+    </div>
+    <div th:unless="${grievanceWithUser.grievance.status == 'Submitted' or grievanceWithUser.grievance.status == 'In Progress'}">
+        No action
+    </div>
+</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js" ></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    // Initialize DataTable
+    $('#grievanceTable').DataTable({
+        "paging": true,
+        "searching": true
+    });
+
+    // Add event listener for status filter
+    $('#statusFilter').on('change', function () {
+        var status = $(this).val();
+        $('#grievanceTable').DataTable().search(status).draw();
+    });
+});
+
+</script>
+
+</body>
+</html>

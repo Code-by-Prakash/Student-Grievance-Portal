@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manage Grievances</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+</head>
+<body>
+<div th:include="fragments/index-header :: header"></div>
+<div th:include="fragments/user-nav :: user-nav"></div>
+<div class="container mt-5">
+    <h2>Manage Grievances</h2>
+     <div th:if="${param.deleted}">
+        <div class="alert alert-success">
+         Grievance deleted successfully. Deleted grievance id is: <span  th:text="${param.deleted}"></span>
+        </div></div>
+         <div th:if="${param.updated}">
+        <div class="alert alert-success">
+         Grievance (id = <span  th:text="${param.updated}"></span>) is updated successfully.
+        </div></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Grievance Id</th>
+                <th>Type</th>
+                <th>Subject</th>
+                <th>Grievance</th>
+                <th>Attachments</th>
+                <th>Status</th>
+                <th>Remarks</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+       <tbody>
+            <tr th:each="grievance : ${grievances}">
+                <td th:text="${grievance.id}"></td>
+                <td th:text="${grievance.type}"></td>
+                <td th:text="${grievance.title}"></td>
+                <td th:text="${grievance.description}"></td>
+                <td>
+        <span th:if="${grievance.attachments != null && grievance.attachments.length > 0}">
+            <a th:href="@{'/download-attachment/' + ${grievance.id}}">View Attachment</a>
+        </span>
+        <span th:if="${grievance.attachments == null || grievance.attachments.length == 0}">
+            No Attachment
+        </span>
+    </td>
+                <td th:text="${grievance.status}"></td>
+                
+                <td>
+                <div th:if="${grievance.remarks != null}">
+                 <p th:text="${grievance.remarks}"></p></div>
+                 <div th:unless="${grievance.remarks != null}">
+        No Remarks
+    </div>
+                 </td>
+                <td>
+                 <div th:if="${grievance.status == 'Submitted'}">
+                    <a th:href="@{'/edit-grievance/' + ${grievance.id}}" class="btn btn-primary btn-sm">Edit</a>
+<!--                     <a th:href="@{'/delete-grievance/' + ${grievance.id}}" class="btn btn-danger btn-sm">Delete</a> -->
+                </div>
+    <div th:unless="${grievance.status == 'Submitted'}">
+        No action
+    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

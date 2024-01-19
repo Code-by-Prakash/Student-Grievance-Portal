@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Track_Grievance</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+<body>
+<div th:include="fragments/index-header :: header"></div>
+<div th:include="fragments/guest-nav :: guest-nav"></div>
+<div class="container mt-5">
+    <h2>Track Grievance</h2>
+   
+           <div th:if="${param.updated}">
+        <div class="alert alert-success">
+        Your Grievance is updated successfully.
+        </div></div>
+        <div th:if="${param.error}">
+        <div class="alert alert-danger">
+        Failed to update the grievance. Please try again.
+        </div></div>
+        <div th:if="${param.file_error}">
+        <div class="alert alert-danger">
+        Invalid file format. Please update with Pdf attachment.
+        </div></div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Grievance Id</th>
+            <th>Type</th>
+            <th>Subject</th>
+            <th>Grievance</th>
+            <th>Attachments</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:if="${guestGrievance != null}">
+            <td th:text="${guestGrievance.id}"></td>
+            <td th:text="${guestGrievance.type}"></td>
+            <td th:text="${guestGrievance.title}"></td>
+            <td th:text="${guestGrievance.description}"></td>
+            <td>
+                <span th:if="${guestGrievance.attachments != null && guestGrievance.attachments.length > 0}">
+                    <a th:href="@{'/download-guest-attachment/' + ${guestGrievance.id}}">View Attachment</a>
+                </span>
+                <span th:if="${guestGrievance.attachments == null || guestGrievance.attachments.length == 0}">
+                    No Attachment
+                </span>
+            </td>
+            <td th:text="${guestGrievance.status}"></td>
+           <td>
+                <div th:if="${guestGrievance.remarks != null}">
+                 <p th:text="${guestGrievance.remarks}"></p></div>
+                 <div th:unless="${guestGrievance.remarks != null}">
+        No Remarks
+    </div>
+                 </td>
+            <td>
+                <div th:if="${guestGrievance.status == 'Submitted'}">
+        <a th:href="@{'/edit-guest-grievance/' + ${guestGrievance.id}}" class="btn btn-primary btn-sm">Edit</a>
+    </div>
+    <div th:unless="${guestGrievance.status == 'Submitted'}">
+        No action
+    </div>
+<!--                 <a th:href="@{'/delete-guest-grievance/' + ${guestGrievance.id}}" class="btn btn-danger btn-sm">Delete</a> -->
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

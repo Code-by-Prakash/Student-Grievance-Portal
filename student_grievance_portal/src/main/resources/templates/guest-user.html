@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Guest-User</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+<body>
+<div th:include="fragments/index-header :: header"></div>
+<div th:include="fragments/guest-nav :: guest-nav"></div>
+
+<div class="container mt-5">
+    <h2>New Grievance</h2>
+    <form th:action="@{/api/guest-grievances}" method="post" enctype="multipart/form-data" >
+        
+         <div th:if="${param.error}">
+        <div class="alert alert-danger">
+            Grievance not submitted. Please submit again with valid details.
+        </div>
+    </div>
+    <div th:if="${param.submitted}">
+        <div class="alert alert-success">
+         Grievance submitted successfully.Your Grievance id is:<span  th:text="${param.submitted}"></span> <span>Please note this for track your grievance.</span>
+        </div>
+    </div>
+    <div th:if="${param.file_error}">
+    <div class="alert alert-danger">
+        Invalid file format. Please upload a PDF file.
+    </div>
+</div>
+        <!-- Grievance Type Select -->
+<div class="form-group">
+    <label for="type">Grievance Type</label>
+    <select class="form-control" id="type" name="type">
+        <option value="Academic">Academic</option>
+        <option value="Non Academic">Non-Academic</option>
+    </select>
+</div>
+
+<!-- Subject Textbox -->
+<div class="form-group">
+    <label for="title">Subject</label>
+    <input type="text" class="form-control" id="title" name="title" required>
+</div>
+
+<!-- Your Grievance Textbox -->
+<div class="form-group">
+    <label for="description">Your Grievance</label>
+    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+</div>
+
+<!-- Attachments File Input -->
+<div class="form-group">
+    <label for="attachments">Attachments (Optional)<br>
+    <span  class="text-danger">Pdf file only allowed(Max file size:5MB)</span></label>
+    <input type="file" class="form-control-file" id="attachments" name="attachments" accept=".pdf">
+</div>
+
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Submit Grievance</button>
+    </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

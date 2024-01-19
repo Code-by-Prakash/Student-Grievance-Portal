@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manage Admin</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+</head>
+<body>
+<div th:include="fragments/index-header :: header"></div>
+<div th:include="fragments/admin-nav :: admin-nav"></div>
+
+  <div class="container mt-5">
+  <h3 class="mb-4">Manage Admin</h3>
+   <div th:if="${param.updated}">
+        <div class="alert alert-success">
+         Admin (id = <span  th:text="${param.updated}"></span>) Details updated successfully.
+        </div></div>
+        <div th:if="${param.error}">
+        <div class="alert alert-danger">
+         Something went wrong. Please try again.
+        </div></div>
+        <div th:if="${param.deleted}">
+        <div class="alert alert-success">
+          Admin (id = <span  th:text="${param.deleted}"></span>) User deleted successfully.
+        </div></div>
+        <table class="table">
+                <thead>
+                    <tr>
+                    <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+<!--                         <th>Password</th> -->
+                        
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through the list of admin -->
+                    <tr th:each="admin : ${adminUser}">
+                        <td th:text="${admin.id}"></td>
+                        <td th:text="${admin.name}"></td>
+                        <td th:text="${admin.email}"></td>
+<!--                           <td th:text="${admin.password}"></td> -->
+                       <td>
+    <a th:href="@{'/edit-admin/' + ${admin.id}}" class="btn btn-primary btn-sm">Edit</a>
+    
+    <a th:if="${admin.id > 1}" th:href="@{'/delete-admin/' + ${admin.id}}" class="btn btn-danger btn-sm ml-2">Delete</a>
+</td>
+
+                         </tr>
+                </tbody>
+            </table>
+        </div>
+ <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
