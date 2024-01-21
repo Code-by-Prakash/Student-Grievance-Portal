@@ -1,9 +1,8 @@
 package com.student_grievance_portal.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
+
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import com.student_grievance_portal.entity.Admin;
 import com.student_grievance_portal.entity.GrievanceWithUserDTO;
