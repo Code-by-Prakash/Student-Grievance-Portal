@@ -51,11 +51,9 @@ public class FileController {
     
     
     @GetMapping("/download-guest-attachment/{id}")
-    public ResponseEntity<byte[]> downloadGuestAttachment(@PathVariable UUID id, HttpSession session) {
-    	Admin admin = (Admin) session.getAttribute("admin");
-    	NewUser user = (NewUser) session.getAttribute("user");
+    public ResponseEntity<byte[]> downloadGuestAttachment(@PathVariable UUID id) {
     	
-    	if (admin != null || user !=null) {
+    	
         Optional<GuestGrievance> guestGrievanceOptional = guestService.getGuestGrievancesById(id);
 
         if (guestGrievanceOptional.isPresent()) {
@@ -72,8 +70,7 @@ public class FileController {
             // You can redirect to an error page or handle it based on your requirements
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-    }
-    	 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    
     }
 
     

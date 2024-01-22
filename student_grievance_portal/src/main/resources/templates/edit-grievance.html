@@ -11,7 +11,7 @@
 <div th:include="fragments/user-nav :: user-nav"></div>
  <div class="container mt-4">
         <h3 class="mb-4">Edit Grievance</h3>
-        <form th:action="@{'/edit-grievance/' + ${grievance.id}}" method="post">
+        <form th:action="@{'/edit-grievance/' + ${grievance.id}}" method="post" enctype="multipart/form-data">
            <div class="form-group">
     <label for="type">Type:</label>
     <select class="form-control" id="type" th:field="${grievance.type}">

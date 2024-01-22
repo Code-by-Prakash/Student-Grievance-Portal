@@ -55,21 +55,26 @@ public class ManageGrievanceController {
     }
     
     @PostMapping("/edit-grievance/{id}")
-    public String editGrievance(@PathVariable Long id, @ModelAttribute NewGrievance updatedGrievance,@RequestParam("attachments") MultipartFile attachments) throws IOException {
+    public String editGrievance(@PathVariable Long id,
+        @RequestParam String type,
+        @RequestParam String title,
+        @RequestParam String description,
+        @RequestParam("attachments") MultipartFile attachments) throws IOException {
         NewGrievance existingGrievance = grievanceService.getGrievanceById(id);
 
         if (existingGrievance != null) {
             // Update the fields of the existing grievance with the new values
-            existingGrievance.setType(updatedGrievance.getType());
-            existingGrievance.setTitle(updatedGrievance.getTitle());
-            existingGrievance.setDescription(updatedGrievance.getDescription());
+            existingGrievance.setType(type);
+            existingGrievance.setTitle(title);
+            existingGrievance.setDescription(description);
             existingGrievance.setAttachments(attachments.getBytes());
 
             // Save the updated grievance
             grievanceService.saveGrievance(existingGrievance);
         }
 
-        return "redirect:/manage-grievance?updated="+id;
+        return "redirect:/manage-grievance?updated=" + id;
     }
+
 
 }
