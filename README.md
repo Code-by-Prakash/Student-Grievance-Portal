@@ -1,5 +1,3 @@
-Certainly! Here's a draft for your GitHub README file:
-
 ---
 
 # Student Grievance Portal
