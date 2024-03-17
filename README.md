@@ -39,5 +39,3 @@ This project is licensed under the [MIT License](LICENSE).
 Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ---
-
-Feel free to customize and expand upon this template to better fit the specifics of your project and your preferences.
