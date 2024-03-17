@@ -17,7 +17,7 @@ The Student Grievance Portal is a web application developed to streamline the ha
 - Spring Boot
 - HTML / CSS
 
-## Roles and Responsibilities
+## Project Involvement
 - Designed the frontend using HTML / CSS for a user-friendly experience.
 - Developed student and admin modules to optimize grievance management processes.
 - Designed and optimized the MySQL database for seamless data storage and retrieval.
